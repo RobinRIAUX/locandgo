@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <template id="di_report_assets_common" inherit_id="web.report_assets_common">    
+        <xpath expr="//link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/locandgo/static/css/di_layout_background.scss"/>
+        </xpath>        
+    </template>
+    
+</odoo>

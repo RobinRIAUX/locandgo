@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+	<!-- Surcharge des Top Menu standard pour les masquer pour les utilisateurs standard -->
+    <record id="sale.sale_menu_root" model="ir.ui.menu">
+        <!-- Use the special many2many value syntax to add a child record,
+             and the `ref()` method to resolve the group XML ID -->
+        <field name="groups_id" eval="[(4,ref('base.group_system'))]"/>
+    </record>	
+    
+    <record id="account.menu_finance" model="ir.ui.menu"> <!-- j'ai du faire 4 surcharges car cela ne fonctionnait pas tout dans la même -->
+        <field name="groups_id" eval="[(4,ref('base.group_system'))]"/>        
+    </record>
+    <record id="account.menu_finance" model="ir.ui.menu">
+        <field name="groups_id" eval="[(3,ref('account.group_account_manager'))]"/>
+    </record>	
+    <record id="account.menu_finance" model="ir.ui.menu">  
+        <field name="groups_id" eval="[(3,ref('account.group_account_user'))]"/>
+    </record>
+     <record id="account.menu_finance" model="ir.ui.menu">  
+        <field name="groups_id" eval="[(3,ref('account.group_account_invoice'))]"/>
+    </record>    		
+	<!-- Top Menu -->
+	<menuitem id="menu_locandgo" name="Loc and Go"  web_icon="locandgo,static/description/icon.png" sequence="309" action="base.action_partner_form"/>
+	<!-- **Menu locandgo -->
+	<menuitem id="menu_locandgo_fichiers" name="Fichiers" sequence="10" parent="menu_locandgo" />
+	<menuitem id="menu_locandgo_ventes" name="Ventes" sequence="20" parent="menu_locandgo" />	
+	<menuitem id="menu_locandgo_compta" name="Comptabilité" sequence="30" parent="menu_locandgo" />	
+	<!-- ***Menu Fichiers -->	
+	<menuitem id="menu_locandgo_art" name="Articles" sequence="10" parent="menu_locandgo_fichiers" action="product.product_template_action_all" />	
+	<menuitem id="menu_locandgo_clients" name="Clients" sequence="20" parent="menu_locandgo_fichiers" action="base.action_partner_form" />		
+	<menuitem id="menu_locandgo_param" name="Paramétrage" sequence="50" parent="menu_locandgo_fichiers" action="locandgo.di_action_param" />	
+	<menuitem id="menu_locandgo_tables" name="Tables" sequence="200" parent="menu_locandgo_fichiers" />	 	 
+	<!-- ****Menu Tables -->
+	<menuitem id="menu_locandgo_taxes" sequence="10" parent="menu_locandgo_tables" action="account.action_tax_form" />			
+	<!-- ***Menu Ventes -->	
+	<menuitem id="menu_locandgo_ventes_devis" name="Devis" sequence="10" parent="menu_locandgo_ventes" action="sale.action_quotations"/>
+	<menuitem id="menu_locandgo_ventes_commandes" name="Commandes" sequence="20" parent="menu_locandgo_ventes" action="sale.action_orders" />  
+	<menuitem id="menu_locandgo_ventes_fact" name="Facturation" sequence="40" parent="menu_locandgo_ventes" />	
+	<!-- ****Menu Facturation Ventes-->      
+	<menuitem id="menu_locandgo_ventes_cde_fact" name="Commandes à facturer" sequence="10" parent="menu_locandgo_ventes_fact" action="sale.action_orders_to_invoice"/>
+	<menuitem id="menu_locandgo_ventes_factures" name="Factures clients" sequence="20" parent="menu_locandgo_ventes_fact" action="account.action_invoice_tree1"/>    
+	<menuitem id="menu_locandgo_ventes_avoirs" name="Avoirs clients" sequence="30" parent="menu_locandgo_ventes_fact" action="account.action_invoice_out_refund"/>	
+	
+    <!-- ***Menu Compta -->       
+    <menuitem id="menu_locandgo_compta_cpt" name="Plan comptable" sequence="10" parent="menu_locandgo_compta" action="account.action_account_form" />    
+    <menuitem id="menu_locandgo_compta_pos_fisc" name="Positions fiscales" sequence="30" parent="menu_locandgo_compta" action="account.action_account_fiscal_position_form" />
+    <menuitem id="menu_locandgo_compta_jnl" name="Journaux" sequence="40" parent="menu_locandgo_compta" action="account.action_account_journal_form" />
+    <menuitem id="menu_locandgo_compta_ecr" name="Ecritures" sequence="50" parent="menu_locandgo_compta" action="account.action_account_moves_all_a" />    
+    <menuitem id="menu_locandgo_compta_transfert" name="Transfert comptabilité" sequence="60" parent="menu_locandgo_compta" action="locandgo.di_action_transfertcompta" />        
+</odoo>

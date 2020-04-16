@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- surcharge du formulaire - Commun Clients/Fournisseurs -->
+        <record id="di_view_partner_form" model="ir.ui.view">
+            <field name="name">di.res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field eval="80" name="priority"/>
+            <field name="arch" type="xml">               
+                <!-- ajout onglet spécifique -->
+                <xpath expr="//page[@name='accounting']" position="after">
+                    <page col="4" name="specifs" string="Compléments" style="font-style: oblique;">
+                        <group>                                             
+                            <field name="di_ordre"/>
+                            <field name="di_idbase"/>
+                            <field name="di_cptloceo"/>
+                            <field name="di_codeacces"/>
+                            <field name="di_horairehs"/>
+                            <field name="di_horaireps"/>
+                            <field name="di_dateouv"/>
+                            <field name="di_dateferm"/>
+                            <field name="di_pseudo"/>
+                            <field name="di_pwd"/>
+                            <field name="di_bloqsite"/>
+                            <field name="di_avecsortie"/>
+                            <field name="di_tarif"/>                                                    
+                        </group>
+                    </page>
+                </xpath>   
+                <!-- masquage champ état + modif place ville/code postal sur la 1ère page du formulaire -->
+                <xpath expr="//field[@name='city']" position="replace"/>
+                <xpath expr="//field[@name='state_id']" position="replace">
+                    <field invisible="1" name="state_id"/>
+                </xpath>
+                <xpath expr="//field[@name='zip']" position="replace">
+                    <field
+                        attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                        name="zip" placeholder="ZIP"/>
+                    <field
+                        attrs="{'readonly': [('type', '=', 'contact'),('parent_id', '!=', False)]}"
+                        name="city" placeholder="City"/>
+                </xpath>
+               
+                <!-- masquage champ état + modif place ville/code postal dans le formulaire contact/adresse -->
+                <xpath
+                    expr="//notebook/page/field/form/sheet/group/group/div/div/field[@name='city']" position="replace"/>
+                <xpath
+                    expr="//notebook/page/field/form/sheet/group/group/div/div/field[@name='state_id']" position="replace">
+                    <field invisible="1" name="state_id"/>
+                </xpath>
+                <xpath
+                    expr="//notebook/page/field/form/sheet/group/group/div/div/field[@name='zip']" position="replace">
+                    <field name="zip" placeholder="ZIP"/>
+                    <field name="city" placeholder="City"/>
+                </xpath>             
+            </field>
+        </record>
+        <!-- modification vue kanban par défaut, on préfère le mode liste - Clients -->
+        <record id="base.action_partner_form_view1" model="ir.actions.act_window.view">
+            <field eval="3" name="sequence"/>
+        </record>
+          <!-- modification vue liste - Commune Clients/Fournisseurs -->
+        <record id="di_view_partner_tree" model="ir.ui.view">
+            <field name="name">di.view_partner_tree</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field eval="80" name="priority"/>
+            <field name="arch" type="xml">                              
+                <!-- ajout code postal, ville, pays(invisible en standard) -->
+                <xpath expr="//field[@name='country_id']" position="replace">
+                    <field name="zip"/>
+                    <field name="city"/>
+                    <field name="country_id"/>
+                </xpath>
+            </field>
+        </record>
+
+    </data>
+</odoo>
+
+
+      
+      
+        

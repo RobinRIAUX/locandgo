@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+	<data>
+		<!-- surcharge vue commande + lignes -->
+		<record id="di_view_order_form" model="ir.ui.view">
+			<field name="name">di.sale.order.form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field eval="80" name="priority" />
+			<field name="arch" type="xml">
+				
+				<!-- on enlève les adresses du choix du tiers -->
+                <xpath expr="//sheet/group/group/field[@name='partner_id']" position="replace">
+                    <field name="partner_id" domain="[('customer','=',True),('parent_id','=',False)]"
+                        context="{'search_default_customer':1, 'show_address': 1}" options='{"always_reload": True}' />
+                </xpath>
+                
+				<!-- lignes en mode liste -->
+				
+				
+				<xpath expr="//field[@name='order_line']/tree" position="attributes"> 
+                    <attribute name="editable">bottom</attribute>                   
+                </xpath>
+								
+				<xpath expr="//field[@name='order_line']/tree//field[@name='product_uom_qty']" position="before">				
+				    <field name="di_nbvelos"/>
+                    <field name="di_nbmois"/> 
+                </xpath>
+                <xpath
+                    expr="//field[@name='order_line']/tree//field[@name='price_subtotal']" position="after">
+                    <field name="price_total"/>                    
+                </xpath>
+                <xpath
+                    expr="//field[@name='order_line']/tree//field[@name='tax_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+				
+                
+				<xpath expr="//div[@class='oe_chatter']" position="replace"/>
+                <xpath expr="//sheet/notebook" position="after">
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </xpath>
+			</field>
+		</record>		
+	</data>
+</odoo>

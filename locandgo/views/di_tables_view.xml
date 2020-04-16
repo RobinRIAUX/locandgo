@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>    
+    <!--Paramétrage -->
+    <record id="view_param_tree" model="ir.ui.view">
+        <field name="name">di.param.tree</field>
+        <field name="model">di.param</field>
+        <field name="arch" type="xml">
+            <tree default_order="di_company_id" string="Paramètres">
+                <field name="di_company_id" readonly="1"/>         
+            </tree>
+        </field>
+    </record>
+    <record id="view_param_form" model="ir.ui.view">
+        <field name="name">di.param.form</field>
+        <field name="model">di.param</field>
+        <field eval="15" name="priority"/>
+        <field name="arch" type="xml">
+            <form string="Paramètres">
+                <sheet modifiers="{}" string="Paramètres">
+                    <group>
+                        <group string="Généralités">
+                            <field can_create="true" can_write="true"
+                                name="di_company_id" readonly="1"/>                            
+                        </group>                       
+                        <group string="Comptabilité">
+                            <field name="di_compta_prg"/>
+                            <field name="di_dos_compt"/>
+                            <field name="di_etb_compt"/>
+                            <field name="di_nom_exp_ecr_compta"/>
+                        </group>                        
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="di_action_param" model="ir.actions.act_window">
+        <field name="name">Paramètres</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">di.param</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                Paramétrage
+            </p>
+            <p>
+                Cliquer pour gérer les paramètres
+            </p>
+        </field>
+    </record>    
+</odoo>

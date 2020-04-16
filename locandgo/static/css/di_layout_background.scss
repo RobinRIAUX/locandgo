@@ -1,0 +1,68 @@
+.o_background_footer, .o_background_header, .o_report_layout_background {
+    font-size: 15px;
+    font-family: 'Arial', 'Helvetica', 'sans-serif';
+}
+.o_report_layout_background {
+    background-image:url(/locandgo/static/img/fond_velo.jpg);
+    background-position: bottom 50px;
+    background-size: 1127px 780px;
+    min-height:1300px;
+    address{
+        font-size: 17px;    
+    }
+    
+    thead tr th, h2 {
+        color: #95C11F;
+    }
+
+    tbody {        
+        color: gray('700');
+        tr {
+            &:nth-child(odd) {
+                background-color: rgba(200, 210, 0, 0.2);
+            }
+            &.o_line_section {
+                color: #95C11F;                              
+            }
+        }
+    }
+    
+    /*Total table*/
+    /* row div rule compat 12.0 */
+    .row > div > table,
+    div#total table {
+        tr {                       
+            &:first-child,
+            &:last-child,
+            &.o_subtotal,
+            &.o_total {                
+                td {
+                    color: #95C11F;                    
+                }
+            }
+        }
+    }
+}
+
+.o_background_header {  
+    font-size: 17px;
+    min-height : 180px;
+    h3 {
+        color: #95C11F;       
+    }
+    img {
+        max-height: 180px;
+        max-width: 300px;        
+    }
+}
+
+
+.o_background_footer {
+    ul {
+        border-top: 1px solid #95C11F;
+        border-bottom: 1px solid #95C11F;        
+        li {
+            color: #95C11F;
+        }
+    }
+}
